@@ -1,7 +1,9 @@
 /* eslint-disable default-case */
 import React, { Component } from 'react';
 import FormUserDetails from './FormUserDetails';
-
+import FormPersonalDetails from './FormPersonalDetails';
+import Confirm from './Confirm';
+import Success from './Success';
 class UserForm extends Component {
     state= {
         username: '',
@@ -14,7 +16,7 @@ class UserForm extends Component {
         step: 1
     }
     // proceed to next step
-    nexstep = () => {
+    nextStep = () => {
         const {step} = this.state;
         this.setState({
             step: step+1
@@ -22,7 +24,7 @@ class UserForm extends Component {
     }
 
     // proceed to prev step
-    prevstep = () => {
+    prevStep = () => {
         const {step} = this.state;
         this.setState({
             step: step-1
@@ -45,17 +47,32 @@ class UserForm extends Component {
             case 1:
                 return (
                     <FormUserDetails
-                        nexstep={this.nexstep}
+                        nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         values={values}
                     />
                 )
             case 2:
-                return <h1>FormPersonalDetails</h1>
+                return (
+                    <FormPersonalDetails
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        values={values}
+                    />
+                )
             case 3:
-                return <h1>FormPersonalDetails</h1>
+                return (
+                    <Confirm
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        values={values}
+                    />
+                )
             case 4:
-                return <h1>FormPersonalDetails</h1>
+                return (
+                    <Success />
+                )
             default:
                 return <h1>Some error</h1>
         }
